@@ -378,7 +378,7 @@ export default function App() {
       <button onClick={(e) => getXML(e)}>Get XML</button>
       <h3>Description:</h3>
       <p>Click event will be displaying current XML file retrives as List of usernames or any other item. Also will be executting an updated XML ready to be send to a
-        specific endpoint url.
+        specific endpoint url. Open Dev Tool and Conosole to see the updated XML.
       </p>
       <h3>XML DATA:</h3>
       <ul id="swords"></ul>
