@@ -27,6 +27,8 @@ function getXML() {
 
 /*** Example of how to display values of xml from response */
 function xmlData(xml) {
+  document.getElementById('users').textContent= '';
+
   let list = document.getElementById('users');
   let users = xml.getElementsByTagName("user");
 
@@ -47,7 +49,7 @@ function xmlData(xml) {
 /*** Example of how to send new xml to specific endpoint */
 function sendXML(xml, name) {
   const xhttp = new XMLHttpRequest();
-  let endpoint= '';
+  let endpoint = '';
   xhttp.open("POST", endpoint);
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState === 4 && xhttp.status === 200) {
@@ -57,6 +59,7 @@ function sendXML(xml, name) {
   };
   xhttp.setRequestHeader("Content-Type", "text/xml");
   xhttp.send(xml);
+
 }
 
 /*** Example of how to process file, adding new values to existin xml from response */
@@ -65,18 +68,31 @@ function processFile(data) {
 
   var user = data.createElement("id");
   user.appendChild(data.createTextNode("1"));
-  
+
   var content = data.createElement("name");
   content.appendChild(data.createTextNode("Karla"));
-  
+
+  var timezone = data.createElement("date");
+  let time = new Date().toISOString();
+  timezone.appendChild(data.createTextNode(time));
+
   chat.appendChild(user);
   chat.appendChild(content);
-  
+  chat.appendChild(timezone);
+
   data.getElementsByTagName("users")[0].appendChild(chat);
 
   console.log(data); //check the updated new XML
-  sendXML(data, 'newXML')
+  sendXML(data, 'newXML');
+
+  // showing updated users
+  let newUsers = data.getElementsByTagName("users")[0];
+  let xmlText = new XMLSerializer().serializeToString(newUsers)
+  document.getElementById('output-2').textContent = xmlText;
+
+ 
 }
+
 
 /** Internal function to generate server links */
 function generateUrl() {
@@ -375,16 +391,25 @@ export default function App() {
       <br />
       <br />
       <hr />
-      <button onClick={(e) => getXML(e)}>Get XML</button>
+      <button onClick={(e) => getXML(e)}>Get & Update XML</button>
       <h3>Description:</h3>
       <p>Click event will be displaying current XML file retrives as List of usernames or any other item. Also will be executting an updated XML ready to be send to a
         specific endpoint url. Open Dev Tool and Conosole to see the updated XML.
       </p>
       <h3>XML DATA:</h3>
-      <ul id="swords"></ul>
-      <ul id="users"></ul>
-      <h2>Current XML Response :</h2>
-      <pre id="output"></pre>
+      <div className="xml-box">
+        <div className="child">
+          <ul id="users"></ul>
+          <h2>Current XML Response :</h2>
+          <pre id="output"></pre>
+        </div>
+        <div className="child">
+          <h2>Updated XML</h2>
+          <pre id="output-2" lang="xml"></pre>
+        </div>
+
+      </div>
+
     </div>
   );
 }
