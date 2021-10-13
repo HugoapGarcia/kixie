@@ -3,9 +3,12 @@ import Axios from "axios";
 import "./index.css";
 import { useEffect } from "react/cjs/react.development";
 
+
 /*** Retreive XML File */
 function getXML() {
-  let url = "https://codetogo.io/api/users.xml";
+  //"https://codetogo.io/api/users.xml";
+  let url = 'https://hugoapgarcia.github.io/structure/user.xml'; 
+  //let _url = 'https://hugoapgarcia.github.io/structure/db.json';
   fetch(url)
     .then(response => response.text())
     .then(data => {
@@ -13,7 +16,7 @@ function getXML() {
       let parser = new DOMParser();
       let xml = parser.parseFromString(data, "application/xml");
       document.getElementById('output').textContent = data;
-      console.log(xml);
+      //console.log(xml);
 
       //read xml
       xmlData(xml)
@@ -23,11 +26,35 @@ function getXML() {
 
     });
 
+
+
+  // var xhr = new XMLHttpRequest(); //invoke a new instance of the XMLHttpRequest
+  // xhr.onload = success; // call success function if request is successful
+  // xhr.onerror = error;  // call error function if request failed
+  // xhr.open('GET', url); // open a GET request
+  // xhr.setRequestHeader("Cache-Control", "no-cache");
+  // xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+  // xhr.send(); // send the request to the server.
+
 }
+
+// function success() {
+//   var data = stringify(this.responseText); //parse the string to JSON
+//   console.log(this.responseText);
+// }
+
+// // function to handle error
+// function error(err) {
+//   console.log('Request Failed', err); //error details will be in the "err" object
+// }
+
+
+
+
 
 /*** Example of how to display values of xml from response */
 function xmlData(xml) {
-  document.getElementById('users').textContent= '';
+  document.getElementById('users').textContent = '';
 
   let list = document.getElementById('users');
   let users = xml.getElementsByTagName("user");
@@ -90,7 +117,7 @@ function processFile(data) {
   let xmlText = new XMLSerializer().serializeToString(newUsers)
   document.getElementById('output-2').textContent = xmlText;
 
- 
+
 }
 
 
