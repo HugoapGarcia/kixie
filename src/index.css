@@ -26,13 +26,4 @@ button {
 .fail {
   color: red;
 }
-.xml-box {
-  width: 100%;
-  height: auto;
-}
-.child {
-  width: 50%;
-  height: auto;
-  float: left;
-}
 

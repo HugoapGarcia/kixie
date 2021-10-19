@@ -3,8 +3,6 @@ import Axios from "axios";
 import "./index.css";
 import { useEffect } from "react/cjs/react.development";
 
-import XmlComponent from './components/xmlRequest.jsx';
-
 
 
 /** Internal function to generate server links */
@@ -304,7 +302,6 @@ export default function App() {
       <br />
       <br />
       <hr />
-      <XmlComponent />
     </div>
   );
 }
